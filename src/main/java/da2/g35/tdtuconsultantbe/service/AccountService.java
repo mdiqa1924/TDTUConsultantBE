@@ -6,8 +6,8 @@ import da2.g35.tdtuconsultantbe.entity.Transcript;
 
 public interface AccountService {
     Account getByEmail(String email);
-    Transcript create(AccountDTO.RegisterForm registerForm);
-    Transcript validateLogin(AccountDTO.LoginForm loginForm);
+    Boolean create(AccountDTO.RegisterForm registerForm);
+    AccountDTO.LoginSuccessResponse validateLogin(AccountDTO.LoginForm loginForm);
     void delete(Long id);
     Account changePassword(AccountDTO.ChangePasswordForm changePasswordForm);
     Account resetPassword(AccountDTO.ChangePasswordForm changePasswordForm);

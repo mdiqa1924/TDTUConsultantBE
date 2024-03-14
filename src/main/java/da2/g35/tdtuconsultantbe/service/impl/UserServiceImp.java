@@ -1,8 +1,6 @@
 package da2.g35.tdtuconsultantbe.service.impl;
 
-import da2.g35.tdtuconsultantbe.dto.AccountDTO;
 import da2.g35.tdtuconsultantbe.dto.UserDTO;
-import da2.g35.tdtuconsultantbe.entity.Account;
 import da2.g35.tdtuconsultantbe.entity.User;
 import da2.g35.tdtuconsultantbe.repository.AccountRepository;
 import da2.g35.tdtuconsultantbe.repository.UserRepository;
@@ -19,19 +17,33 @@ public class UserServiceImp implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User getUserProfile(Long id) {
-        return userRepository.findById(id).get();
+    public UserDTO.userResponse getUserProfile(Long id) {
+        User user = userRepository.findById(id).get();
+        UserDTO.userResponse response = new UserDTO.userResponse();
+        response.setId(id);
+        response.setFullname(user.getFullname());
+        response.setPhoneNumber(user.getPhoneNumber());
+        response.setDob(user.getDob());
+        response.setSchool(user.getSchool());
+        return response;
     }
 
     @Override
-    public User update(Long id, UserDTO.updateUserForm updateUserForm) {
+    public UserDTO.userResponse update(Long id, UserDTO.updateUserForm updateUserForm) {
         User user = userRepository.findById(id).get();
         user.setFullname(updateUserForm.getFullname());
         user.setPhoneNumber(updateUserForm.getPhoneNumber());
         user.setSchool(updateUserForm.getSchool());
         user.setDob(updateUserForm.getDob());
-
         User result = userRepository.save(user);
-        return result;
+
+        UserDTO.userResponse response = new UserDTO.userResponse();
+        response.setId(user.getId());
+        response.setFullname(user.getFullname());
+        response.setPhoneNumber(user.getPhoneNumber());
+        response.setDob(user.getDob());
+        response.setSchool(user.getSchool());
+
+        return response;
     }
 }

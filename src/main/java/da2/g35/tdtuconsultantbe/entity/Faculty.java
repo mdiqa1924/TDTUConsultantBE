@@ -22,6 +22,15 @@ public class Faculty {
     @Column(name = "faculty_name")
     private String name;
 
+    @Column(name = "faculty_founding")
+    private String found;
+
+    @Column(name = "faculty_url")
+    private String url;
+
     @OneToMany(mappedBy = "faculty")
-    private List<Major> majors;
+    private Set<Major> majors;
+
+    @ManyToMany(mappedBy = "facultyHobbies")
+    List<Hobby> hobbyByFaculty;
 }

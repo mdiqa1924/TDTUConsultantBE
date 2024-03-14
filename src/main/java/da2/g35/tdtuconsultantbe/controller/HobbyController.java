@@ -1,5 +1,6 @@
 package da2.g35.tdtuconsultantbe.controller;
 
+import da2.g35.tdtuconsultantbe.dto.HobbyDTO;
 import da2.g35.tdtuconsultantbe.entity.Hobby;
 import da2.g35.tdtuconsultantbe.entity.Major;
 import da2.g35.tdtuconsultantbe.service.HobbyService;
@@ -16,15 +17,9 @@ public class HobbyController {
     @Autowired
     private HobbyService hobbyService;
 
-    @GetMapping(value = "/major/{id}")
-    public ResponseEntity<List<Hobby>> getHobbiesByMajor(@Valid @PathVariable Long id){
-        List<Hobby> hobbies = hobbyService.getHobbiesByMajor(id);
-        return ResponseEntity.ok(hobbies);
-    }
-
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<List<Hobby>> getHobbiesByUser(@Valid @PathVariable Long id){
-        List<Hobby> hobbies = hobbyService.getHobbiesByUser(id);
+    public ResponseEntity<Object> getHobbiesByUser(@Valid @PathVariable Long id){
+        List<HobbyDTO.HobbyResponse> hobbies = hobbyService.getHobbiesByUser(id);
         return ResponseEntity.ok(hobbies);
     }
 }

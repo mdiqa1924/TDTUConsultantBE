@@ -1,6 +1,8 @@
 package da2.g35.tdtuconsultantbe.service.impl;
 
 import da2.g35.tdtuconsultantbe.dto.AccountDTO;
+import da2.g35.tdtuconsultantbe.dto.TranscriptDTO;
+import da2.g35.tdtuconsultantbe.dto.UserDTO;
 import da2.g35.tdtuconsultantbe.entity.Account;
 import da2.g35.tdtuconsultantbe.entity.Transcript;
 import da2.g35.tdtuconsultantbe.entity.User;
@@ -19,8 +21,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountNotFoundException;
-import java.io.Console;
 import java.util.UUID;
 
 @Service
@@ -48,24 +48,50 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public Account getByEmail(String email) {
-        return accountRepository.findByEmail(email).get();
+        return accountRepository.findByEmail(email);
     }
 
     @Override
-    public Transcript validateLogin(AccountDTO.LoginForm loginForm) {
+    public AccountDTO.LoginSuccessResponse validateLogin(AccountDTO.LoginForm loginForm) {
 
-        if(accountRepository.findByEmail(loginForm.getEmail()).isEmpty()){
+        if(accountRepository.findByEmail(loginForm.getEmail()) == null){
             throw new RuntimeException("Email is not registered yet.");
         }
         else {
-            Account checkAccount = accountRepository.findByEmail(loginForm.getEmail()).get();
+            Account checkAccount = accountRepository.findByEmail(loginForm.getEmail());
             if(passwordEncoder.matches(loginForm.getPassword(), checkAccount.getPassword())){
 
-//                AccountDTO.LoginSuccessResponse response = new AccountDTO.LoginSuccessResponse();
-//                response.setEmail(checkAccount.getEmail());
-//                response.setUser(userRepository.findById(checkAccount.getId()).get());
-//                response.setTranscript(transcriptRepository.findById(checkAccount.getId()).get());
-                return transcriptRepository.findById(checkAccount.getId()).get();
+                AccountDTO.LoginSuccessResponse response = new AccountDTO.LoginSuccessResponse();
+                response.setId(checkAccount.getId());
+                response.setEmail(checkAccount.getEmail());
+
+                User user = userRepository.findById(checkAccount.getId()).get();
+                UserDTO.userResponse userResponse = new UserDTO.userResponse();
+                userResponse.setId(user.getId());
+                userResponse.setFullname(user.getFullname());
+                userResponse.setPhoneNumber(user.getPhoneNumber());
+                userResponse.setSchool(user.getSchool());
+                userResponse.setDob(user.getDob());
+                response.setUser(userResponse);
+
+                Transcript transcript = transcriptRepository.findById(checkAccount.getId()).get();
+                TranscriptDTO.TranscriptUpdateForm transcriptResponse = new TranscriptDTO.TranscriptUpdateForm();
+                transcriptResponse.setToan(transcript.getToan());
+                transcriptResponse.setVatLy(transcript.getVatLy());
+                transcriptResponse.setHoaHoc(transcript.getHoaHoc());
+                transcriptResponse.setNguVan(transcript.getNguVan());
+                transcriptResponse.setLichSu(transcript.getLichSu());
+                transcriptResponse.setDiaLy(transcript.getDiaLy());
+                transcriptResponse.setGdcd(transcript.getGdcd());
+                transcriptResponse.setCongNghe(transcript.getCongNghe());
+                transcriptResponse.setGdtc(transcript.getGdtc());
+                transcriptResponse.setGdqp(transcript.getGdqp());
+                transcriptResponse.setSinhHoc(transcript.getSinhHoc());
+                transcriptResponse.setTiengAnh(transcript.getTiengAnh());
+                transcriptResponse.setTinHoc(transcript.getTinHoc());
+                response.setTranscript(transcriptResponse);
+
+                return response;
             }
             else {
                 throw new RuntimeException("Password is wrong.");
@@ -74,10 +100,10 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    public Transcript create(AccountDTO.RegisterForm registerForm) {
-        accountRepository.findByEmail(registerForm.getEmail()).ifPresent(account -> {
-            throw new RuntimeException("Email already exists.");
-        });
+    public Boolean create(AccountDTO.RegisterForm registerForm) {
+        if(accountRepository.findByEmail(registerForm.getEmail()) != null){
+            throw new RuntimeException("Email is already exist.");
+        }
         Account newAccount = new Account();
         newAccount.setEmail(registerForm.getEmail());
         newAccount.setPassword(passwordEncoder.encode(registerForm.getPassword()) );
@@ -104,7 +130,7 @@ public class AccountServiceImp implements AccountService {
 //        response.setTranscript(newTranscript);
 
 
-        return newTranscript;
+        return true;
     }
 
     @Override
@@ -114,7 +140,7 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public Account changePassword(AccountDTO.ChangePasswordForm changePasswordForm) {
-        Account account = accountRepository.findByEmail(changePasswordForm.getEmail()).get();
+        Account account = accountRepository.findByEmail(changePasswordForm.getEmail());
         if(account == null){
             throw new RuntimeException("Account doesn't exist.");
         }
@@ -135,7 +161,7 @@ public class AccountServiceImp implements AccountService {
 
     @Override
     public AccountDTO.EmailResponse sendResetPasswordEmail(String email) {
-        Account account = accountRepository.findByEmail(email).get();
+        Account account = accountRepository.findByEmail(email);
         if(account == null){
             throw new RuntimeException("Account Not Found.");
         }

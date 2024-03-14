@@ -32,7 +32,8 @@ public class TranscriptDTO {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class TranscriptResponse{
-        private Transcript transcript;
+        private Long id;
+        private TranscriptUpdateForm scores;
         private List<Major> majorList;
     }
 

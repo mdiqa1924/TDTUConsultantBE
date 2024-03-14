@@ -20,6 +20,9 @@ public class Major {
     @Column(name = "major_id")
     private Long id;
 
+    @Column(name = "major_code")
+    private String code;
+
     @Column(name = "major_name")
     private String name;
 
@@ -29,15 +32,6 @@ public class Major {
 
     @ManyToMany(mappedBy = "userMajors")
     List<User> whoseMajors;
-
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "major_hobby",
-            joinColumns = @JoinColumn(name = "major_id"),
-            inverseJoinColumns = @JoinColumn(name = "hobby_id")
-    )
-    List<Hobby> majorHobbies;
 
     @JsonIgnore
     @ManyToMany

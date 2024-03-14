@@ -1,5 +1,6 @@
 package da2.g35.tdtuconsultantbe.controller;
 
+import da2.g35.tdtuconsultantbe.dto.MajorDTO;
 import da2.g35.tdtuconsultantbe.entity.Major;
 import da2.g35.tdtuconsultantbe.service.MajorService;
 import jakarta.validation.Valid;
@@ -15,27 +16,39 @@ public class MajorController {
     @Autowired
     private MajorService majorService;
 
+    @GetMapping(value = "/")
+    public ResponseEntity<List<MajorDTO.MajorResponse>> getAllMajors(){
+        List<MajorDTO.MajorResponse> responses = majorService.getAllMajors();
+        return ResponseEntity.ok(responses);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Object> getMajorById(@Valid @PathVariable Long id){
+        MajorDTO.MajorResponse response = majorService.getMajorById(id);
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping(value = "/faculty/{id}")
-    public ResponseEntity<List<Major>> getMajorsByFaculty(@Valid @PathVariable Long id){
-        List<Major> majors = majorService.getMajorsByFaculty(id);
+    public ResponseEntity<List<MajorDTO.MajorResponse>> getMajorsByFaculty(@Valid @PathVariable Long id){
+        List<MajorDTO.MajorResponse> majors = majorService.getMajorsByFaculty(id);
         return ResponseEntity.ok(majors);
     }
 
     @GetMapping(value = "/hobby/{id}")
-    public ResponseEntity<List<Major>> getMajorsByHobby(@Valid @PathVariable Long id){
-        List<Major> majors = majorService.getMajorsByHobby(id);
-        return ResponseEntity.ok(majors);
+    public ResponseEntity<List<MajorDTO.MajorResponse>> getMajorsByHobby(@Valid @PathVariable Long id){
+        List<MajorDTO.MajorResponse> responses = majorService.getMajorsByHobby(id);
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping(value = "/combination/{id}")
-    public ResponseEntity<List<Major>> getMajorsByCombination(@Valid @PathVariable Long id){
-        List<Major> majors = majorService.getMajorsByCombination(id);
-        return ResponseEntity.ok(majors);
+    public ResponseEntity<List<MajorDTO.MajorResponse>> getMajorsByCombination(@Valid @PathVariable Long id){
+        List<MajorDTO.MajorResponse> responses = majorService.getMajorsByCombination(id);
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping(value = "/user/{id}")
-    public ResponseEntity<List<Major>> getMajorsByUser(@Valid @PathVariable Long id){
-        List<Major> majors = majorService.getMajorsByUser(id);
-        return ResponseEntity.ok(majors);
+    public ResponseEntity<List<MajorDTO.MajorResponse>> getMajorsByUser(@Valid @PathVariable Long id){
+        List<MajorDTO.MajorResponse> responses = majorService.getMajorsByUser(id);
+        return ResponseEntity.ok(responses);
     }
 }

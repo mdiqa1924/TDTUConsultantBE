@@ -26,18 +26,18 @@ public class TranscriptServiceImp implements TranscriptService {
     @Autowired
     private CombinationRepository combinationRepository;
 
-    @Override
-    public TranscriptDTO.TranscriptResponse getTranscriptByUser(Long id) {
-        User user = userRepository.findById(id).get();
-        Transcript transcript = transcriptRepository.findByUser(user);
-
-        List<Major> majorList = getPossibleMajorsByTranscript(transcript);
-
-        TranscriptDTO.TranscriptResponse response = new TranscriptDTO.TranscriptResponse();
-        response.setTranscript(transcript);
-        response.setMajorList(majorList);
-        return response;
-    }
+//    @Override
+//    public TranscriptDTO.TranscriptResponse getTranscriptByUser(Long id) {
+//        User user = userRepository.findById(id).get();
+//        Transcript transcript = transcriptRepository.findByUser(user);
+//
+//        List<Major> majorList = getPossibleMajorsByTranscript(transcript);
+//
+//        TranscriptDTO.TranscriptResponse response = new TranscriptDTO.TranscriptResponse();
+//        response.setTranscript(transcript);
+//        response.setMajorList(majorList);
+//        return response;
+//    }
 
     @Override
     public Transcript update(Long id, TranscriptDTO.TranscriptUpdateForm transcriptUpdateForm) {
@@ -62,16 +62,16 @@ public class TranscriptServiceImp implements TranscriptService {
 
     //get all possible majors for User based on 3 highest scores
     //in their Transcript
-    public List<Major> getPossibleMajorsByTranscript(Transcript transcript){
-        List<String> subjects = getThreeHighestScores(transcript);
-        List<Subject> subjectList = new ArrayList<>();
-        for(String s : subjects){
-            subjectList.add(subjectRepository.findByName(s));
-        }
-        Combination combination = combinationRepository.findCombinationByCombinationSubjects(subjectList);
-        List<Major> majors = majorRepository.findByMajorCombinations(combination);
-        return majors;
-    }
+//    public List<Major> getPossibleMajorsByTranscript(Transcript transcript){
+//        List<String> subjects = getThreeHighestScores(transcript);
+//        List<Subject> subjectList = new ArrayList<>();
+//        for(String s : subjects){
+//            subjectList.add(subjectRepository.findByName(s));
+//        }
+//        Combination combination = combinationRepository.findCombinationByCombinationSubjects(subjectList);
+//        List<Major> majors = majorRepository.findByMajorCombinations(combination);
+//        return majors;
+//    }
 
     public List<String> getThreeHighestScores(Transcript transcript){
         HashMap<String, Double> scores = new HashMap<String, Double>();

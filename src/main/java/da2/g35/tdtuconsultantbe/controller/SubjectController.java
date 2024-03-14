@@ -1,5 +1,6 @@
 package da2.g35.tdtuconsultantbe.controller;
 
+import da2.g35.tdtuconsultantbe.dto.SubjectDTO;
 import da2.g35.tdtuconsultantbe.entity.Subject;
 import da2.g35.tdtuconsultantbe.service.SubjectService;
 import jakarta.validation.Valid;
@@ -19,8 +20,8 @@ public class SubjectController {
     private SubjectService subjectService;
 
     @GetMapping(value = "/combination/{id}")
-    public ResponseEntity<List<Subject>> getSubjectsByCombination(@Valid @PathVariable Long id){
-        List<Subject> subjects = subjectService.getSubjectsByCombination(id);
+    public ResponseEntity<Object> getSubjectsByCombination(@Valid @PathVariable Long id){
+        List<SubjectDTO.SubjectResponse> subjects = subjectService.getSubjectsByCombination(id);
         return ResponseEntity.ok(subjects);
     }
 }

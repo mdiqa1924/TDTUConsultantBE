@@ -1,6 +1,10 @@
 package da2.g35.tdtuconsultantbe.controller;
 
+import da2.g35.tdtuconsultantbe.dto.FacultyDTO;
 import da2.g35.tdtuconsultantbe.entity.Faculty;
+import da2.g35.tdtuconsultantbe.entity.Hobby;
+import da2.g35.tdtuconsultantbe.repository.FacultyRepository;
+import da2.g35.tdtuconsultantbe.repository.HobbyRepository;
 import da2.g35.tdtuconsultantbe.service.FacultyService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +20,20 @@ public class FacultyController {
     private FacultyService facultyService;
 
     @GetMapping(value = "/")
-    public ResponseEntity<List<Faculty>> getListFaculty(){
-        List<Faculty> faculties = facultyService.getListFaculty();
-        return ResponseEntity.ok().body(faculties);
+    public ResponseEntity<List<FacultyDTO.FacultyResponse>> getListFaculty(){
+        List<FacultyDTO.FacultyResponse> faculties = facultyService.getListFaculty();
+        return ResponseEntity.ok(faculties);
     }
     @GetMapping(value = "/major/{id}")
-    public ResponseEntity<Faculty> getFacultyByMajor(@Valid  @PathVariable Long id){
-        Faculty faculty = facultyService.getFacultyByMajor(id);
-        return ResponseEntity.ok(faculty);
+    public ResponseEntity<Object> getFacultyByMajor(@Valid  @PathVariable Long id){
+        FacultyDTO.FacultyResponse response = facultyService.getFacultyByMajor(id);
+        return ResponseEntity.ok(response);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Object> getFacultyById(@Valid @PathVariable Long id){
+        FacultyDTO.FacultyResponse response = facultyService.getFacultyById(id);
+        return ResponseEntity.ok(response);
+    }
+
 }

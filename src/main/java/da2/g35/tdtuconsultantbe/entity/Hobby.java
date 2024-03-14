@@ -1,5 +1,6 @@
 package da2.g35.tdtuconsultantbe.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,12 +20,24 @@ public class Hobby {
     @Column(name = "hobby_id")
     private Long id;
 
+    @Column(name = "hobby_code")
+    private String code;
+
     @Column(name = "hobby_name")
     private String name;
+
+    @Column(name = "hobby_description")
+    private String description;
 
     @ManyToMany(mappedBy = "userHobbies")
     List<User> whoseHobbies;
 
-    @ManyToMany(mappedBy = "majorHobbies")
-    List<Major> majorByHobby;
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "hobby_faculty",
+            joinColumns = @JoinColumn(name = "hobby_id"),
+            inverseJoinColumns = @JoinColumn(name = "faculty_id")
+    )
+    List<Faculty> facultyHobbies;
 }

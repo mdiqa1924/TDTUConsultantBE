@@ -17,15 +17,17 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/register", produces = "application/json")
     public ResponseEntity<Object> register(@Valid @RequestBody AccountDTO.RegisterForm registerForm){
-        Transcript newAccount = accountService.create(registerForm);
-        return ResponseEntity.ok().body(newAccount);
+        if(accountService.create(registerForm) == false){
+            return ResponseEntity.badRequest().body("Sign up failed!");
+        }
+        return ResponseEntity.ok().body("{\"message\": \"Sign up successfully! Please sign in!\"}");
     }
 
     @PostMapping(value = "/login")
     public ResponseEntity<Object> login(@Valid @RequestBody AccountDTO.LoginForm loginForm){
-        Transcript response = accountService.validateLogin(loginForm);
+        AccountDTO.LoginSuccessResponse response = accountService.validateLogin(loginForm);
         return ResponseEntity.ok(response);
     }
 
@@ -35,10 +37,10 @@ public class AccountController {
         return ResponseEntity.ok().body("{\"message\": \"Change password successfully!\"}");
     }
 
-    @PostMapping(value = "/sendVerificationEmail", produces = "application/json")
-    public ResponseEntity<Object> sendVerificationEmail(@Valid @RequestBody String email){
-
-    }
+//    @PostMapping(value = "/sendVerificationEmail", produces = "application/json")
+//    public ResponseEntity<Object> sendVerificationEmail(@Valid @RequestBody String email){
+//
+//    }
 
     @PostMapping(value = "/resetPassword", produces = "application/json")
     public ResponseEntity<Object> resetPassword(@Valid @RequestBody AccountDTO.ChangePasswordForm resetPasswordForm){

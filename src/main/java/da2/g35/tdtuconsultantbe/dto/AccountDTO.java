@@ -20,9 +20,10 @@ public class AccountDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class LoginSuccessResponse{
+        private Long id;
         private String email;
-        private User user;
-        private Transcript transcript;
+        private UserDTO.userResponse user;
+        private TranscriptDTO.TranscriptUpdateForm transcript;
     }
 
     @Data

@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
-    List<Subject> findByCombinationBySubject(Combination combination);
-    Subject findByName(String name);
+    List<Subject> findSubjectsByCombinationBySubjectContains(Combination combination);
+//    Subject findByName(String name);
 }
