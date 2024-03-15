@@ -54,6 +54,7 @@ public class FacultyServiceImp implements FacultyService {
         response.setName(faculty.getName());
         response.setFound(faculty.getFound());
         response.setUrl(faculty.getUrl());
+        response.setImg(faculty.getImg());
         return response;
     }
 }

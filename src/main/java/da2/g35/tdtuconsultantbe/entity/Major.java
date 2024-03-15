@@ -26,6 +26,9 @@ public class Major {
     @Column(name = "major_name")
     private String name;
 
+    @Column(name = "major_img")
+    private String img;
+
     @ManyToOne
     @JoinColumn(name = "faculty_id", nullable = false)
     private Faculty faculty;

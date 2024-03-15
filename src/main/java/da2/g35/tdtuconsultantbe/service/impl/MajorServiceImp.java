@@ -101,6 +101,7 @@ public class MajorServiceImp implements MajorService {
         response.setId(major.getId());
         response.setName(major.getName());
         response.setCode(major.getCode());
+        response.setImg(major.getImg());
         return response;
     }
 }

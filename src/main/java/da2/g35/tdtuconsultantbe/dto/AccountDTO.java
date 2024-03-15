@@ -22,8 +22,23 @@ public class AccountDTO {
     public static class LoginSuccessResponse{
         private Long id;
         private String email;
-        private UserDTO.userResponse user;
-        private TranscriptDTO.TranscriptUpdateForm transcript;
+        private String fullname;
+        private String phoneNumber;
+        private String dob;
+        private String school;
+        private double toan;
+        private double nguVan;
+        private double tiengAnh;
+        private double vatLy;
+        private double hoaHoc;
+        private double sinhHoc;
+        private double lichSu;
+        private double diaLy;
+        private double gdcd;
+        private double congNghe;
+        private double tinHoc;
+        private double gdqp;
+        private double gdtc;
     }
 
     @Data
@@ -61,4 +76,6 @@ public class AccountDTO {
         private boolean isSuccess;
         private String message;
     }
+
+
 }

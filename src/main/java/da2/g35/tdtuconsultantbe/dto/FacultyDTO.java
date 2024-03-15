@@ -14,5 +14,6 @@ public class FacultyDTO {
         private String name;
         private String found;
         private String url;
+        private String img;
     }
 }

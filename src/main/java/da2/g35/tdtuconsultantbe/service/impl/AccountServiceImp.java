@@ -66,30 +66,26 @@ public class AccountServiceImp implements AccountService {
                 response.setEmail(checkAccount.getEmail());
 
                 User user = userRepository.findById(checkAccount.getId()).get();
-                UserDTO.userResponse userResponse = new UserDTO.userResponse();
-                userResponse.setId(user.getId());
-                userResponse.setFullname(user.getFullname());
-                userResponse.setPhoneNumber(user.getPhoneNumber());
-                userResponse.setSchool(user.getSchool());
-                userResponse.setDob(user.getDob());
-                response.setUser(userResponse);
+                response.setId(user.getId());
+                response.setFullname(user.getFullname());
+                response.setPhoneNumber(user.getPhoneNumber());
+                response.setSchool(user.getSchool());
+                response.setDob(user.getDob());
 
                 Transcript transcript = transcriptRepository.findById(checkAccount.getId()).get();
-                TranscriptDTO.TranscriptUpdateForm transcriptResponse = new TranscriptDTO.TranscriptUpdateForm();
-                transcriptResponse.setToan(transcript.getToan());
-                transcriptResponse.setVatLy(transcript.getVatLy());
-                transcriptResponse.setHoaHoc(transcript.getHoaHoc());
-                transcriptResponse.setNguVan(transcript.getNguVan());
-                transcriptResponse.setLichSu(transcript.getLichSu());
-                transcriptResponse.setDiaLy(transcript.getDiaLy());
-                transcriptResponse.setGdcd(transcript.getGdcd());
-                transcriptResponse.setCongNghe(transcript.getCongNghe());
-                transcriptResponse.setGdtc(transcript.getGdtc());
-                transcriptResponse.setGdqp(transcript.getGdqp());
-                transcriptResponse.setSinhHoc(transcript.getSinhHoc());
-                transcriptResponse.setTiengAnh(transcript.getTiengAnh());
-                transcriptResponse.setTinHoc(transcript.getTinHoc());
-                response.setTranscript(transcriptResponse);
+                response.setToan(transcript.getToan());
+                response.setVatLy(transcript.getVatLy());
+                response.setHoaHoc(transcript.getHoaHoc());
+                response.setNguVan(transcript.getNguVan());
+                response.setLichSu(transcript.getLichSu());
+                response.setDiaLy(transcript.getDiaLy());
+                response.setGdcd(transcript.getGdcd());
+                response.setCongNghe(transcript.getCongNghe());
+                response.setGdtc(transcript.getGdtc());
+                response.setGdqp(transcript.getGdqp());
+                response.setSinhHoc(transcript.getSinhHoc());
+                response.setTiengAnh(transcript.getTiengAnh());
+                response.setTinHoc(transcript.getTinHoc());
 
                 return response;
             }

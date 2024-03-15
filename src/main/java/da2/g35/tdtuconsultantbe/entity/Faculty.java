@@ -28,6 +28,9 @@ public class Faculty {
     @Column(name = "faculty_url")
     private String url;
 
+    @Column(name = "faculty_img")
+    private String img;
+
     @OneToMany(mappedBy = "faculty")
     private Set<Major> majors;
 
