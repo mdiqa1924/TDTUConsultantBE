@@ -26,18 +26,28 @@ public class TranscriptServiceImp implements TranscriptService {
     @Autowired
     private CombinationRepository combinationRepository;
 
-//    @Override
-//    public TranscriptDTO.TranscriptResponse getTranscriptByUser(Long id) {
-//        User user = userRepository.findById(id).get();
-//        Transcript transcript = transcriptRepository.findByUser(user);
-//
-//        List<Major> majorList = getPossibleMajorsByTranscript(transcript);
-//
-//        TranscriptDTO.TranscriptResponse response = new TranscriptDTO.TranscriptResponse();
-//        response.setTranscript(transcript);
-//        response.setMajorList(majorList);
-//        return response;
-//    }
+    @Override
+    public TranscriptDTO.TranscriptUpdateForm getTranscriptByUser(Long id) {
+        User user = userRepository.findById(id).get();
+        Transcript transcript = transcriptRepository.findByUser(user);
+
+        TranscriptDTO.TranscriptUpdateForm response = new TranscriptDTO.TranscriptUpdateForm();
+        response.setToan(transcript.getToan());
+        response.setVatLy(transcript.getVatLy());
+        response.setHoaHoc(transcript.getHoaHoc());
+        response.setTiengAnh(transcript.getTiengAnh());
+        response.setSinhHoc(transcript.getSinhHoc());
+        response.setDiaLy(transcript.getDiaLy());
+        response.setLichSu(transcript.getLichSu());
+        response.setGdcd(transcript.getGdcd());
+        response.setGdqp(transcript.getGdqp());
+        response.setGdtc(transcript.getGdtc());
+        response.setNguVan(transcript.getNguVan());
+        response.setTinHoc(transcript.getTinHoc());
+        response.setCongNghe(transcript.getCongNghe());
+
+        return response;
+    }
 
     @Override
     public Transcript update(Long id, TranscriptDTO.TranscriptUpdateForm transcriptUpdateForm) {

@@ -15,11 +15,11 @@ public class TranscriptController {
     @Autowired
     private TranscriptService transcriptService;
 
-//    @GetMapping(value = "/user/{id}")
-//    public ResponseEntity<Object> getByUser(@Valid @PathVariable Long id){
-//        TranscriptDTO.TranscriptResponse transcript = transcriptService.getTranscriptByUser(id);
-//        return ResponseEntity.ok(transcript);
-//    }
+    @GetMapping(value = "/user/{id}")
+    public ResponseEntity<Object> getByUser(@Valid @PathVariable Long id){
+        TranscriptDTO.TranscriptUpdateForm transcript = transcriptService.getTranscriptByUser(id);
+        return ResponseEntity.ok(transcript);
+    }
 
     @PostMapping(value = "/update/{id}")
     public ResponseEntity<Transcript> update(@Valid @PathVariable Long id, @RequestBody TranscriptDTO.TranscriptUpdateForm updateForm){

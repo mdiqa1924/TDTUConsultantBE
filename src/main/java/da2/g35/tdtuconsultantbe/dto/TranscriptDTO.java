@@ -34,7 +34,7 @@ public class TranscriptDTO {
     public static class TranscriptResponse{
         private Long id;
         private TranscriptUpdateForm scores;
-        private List<Major> majorList;
+//        private List<Major> majorList;
     }
 
 }
