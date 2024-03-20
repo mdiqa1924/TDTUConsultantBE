@@ -51,7 +51,6 @@ public class CombinationServiceImp implements CombinationService {
 
     public CombinationDTO.CombinationResponse formatCombinationResponse(Combination combination){
         CombinationDTO.CombinationResponse response = new CombinationDTO.CombinationResponse();
-        response.setId(combination.getId());
         response.setName(combination.getName());
         return response;
     }

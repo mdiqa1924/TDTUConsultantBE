@@ -29,6 +29,12 @@ public class Major {
     @Column(name = "major_img")
     private String img;
 
+    @Column(name = "major_intro", columnDefinition="TEXT")
+    private String intro;
+
+    @Column(name = "major_condition")
+    private String condition;
+
     @ManyToOne
     @JoinColumn(name = "faculty_id", nullable = false)
     private Faculty faculty;

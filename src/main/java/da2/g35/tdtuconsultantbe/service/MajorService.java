@@ -12,11 +12,11 @@ import java.util.List;
 
 public interface MajorService {
     List<MajorDTO.MajorResponse> getAllMajors();
-    MajorDTO.MajorResponse getMajorById(Long id);
     List<MajorDTO.MajorResponse> getMajorsByFaculty(Long id);
     List<MajorDTO.MajorResponse> getMajorsByHobby(Long id);
     List<MajorDTO.MajorResponse> getMajorsByCombination(Long id);
     List<MajorDTO.MajorResponse> getMajorsByUser(Long id);
+    MajorDTO.MajorDetailResponse getDetailMajor(Long id);
     //for prediction
 //    List<MajorDTO.MajorResponse> getMajorsByCombinations(List<Combination> combinations);
 }

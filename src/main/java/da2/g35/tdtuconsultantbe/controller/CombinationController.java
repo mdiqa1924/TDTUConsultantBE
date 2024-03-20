@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/combination")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class CombinationController {
     @Autowired
     private CombinationService combinationService;

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/transcript")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class TranscriptController {
     @Autowired
     private TranscriptService transcriptService;

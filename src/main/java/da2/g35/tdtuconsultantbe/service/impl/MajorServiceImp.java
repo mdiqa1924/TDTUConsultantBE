@@ -1,9 +1,11 @@
 package da2.g35.tdtuconsultantbe.service.impl;
 
+import da2.g35.tdtuconsultantbe.dto.CombinationDTO;
 import da2.g35.tdtuconsultantbe.dto.FacultyDTO;
 import da2.g35.tdtuconsultantbe.dto.MajorDTO;
 import da2.g35.tdtuconsultantbe.entity.*;
 import da2.g35.tdtuconsultantbe.repository.*;
+import da2.g35.tdtuconsultantbe.service.CombinationService;
 import da2.g35.tdtuconsultantbe.service.MajorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ public class MajorServiceImp implements MajorService {
     private HobbyRepository hobbyRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private CombinationService combinationService;
     @Override
     public List<MajorDTO.MajorResponse> getAllMajors() {
         List<Major> majors = majorRepository.findAll();
@@ -33,13 +37,6 @@ public class MajorServiceImp implements MajorService {
             responseList.add(majorResponse);
         }
         return responseList;
-    }
-
-    @Override
-    public MajorDTO.MajorResponse getMajorById(Long id) {
-        Major major = majorRepository.findById(id).get();
-        MajorDTO.MajorResponse response = formatMajorResponse(major);
-        return response;
     }
 
         @Override
@@ -83,6 +80,31 @@ public class MajorServiceImp implements MajorService {
             responses.add(formatMajorResponse(m));
         }
         return responses;
+    }
+
+    @Override
+    public MajorDTO.MajorDetailResponse getDetailMajor(Long id) {
+        MajorDTO.MajorDetailResponse response = new MajorDTO.MajorDetailResponse();
+        Major major = majorRepository.findById(id).get();
+        Faculty thisFaculty = facultyRepository.findByMajors(major);
+        response.setId(major.getId());
+        response.setCode(major.getCode());
+        response.setName(major.getName());
+        response.setIntro(major.getIntro());
+        response.setCondition(major.getCondition());
+        response.setImg(major.getImg());
+        response.setFacultyName(thisFaculty.getName());
+        List<CombinationDTO.CombinationResponse> combinations = combinationService.getCombinationsByMajor(major.getId());
+        response.setCombinations(combinations);
+        List<Major> majors = majorRepository.findMajorsByFaculty(thisFaculty);
+        majors.remove(major);
+        List<MajorDTO.OtherMajors> others = new ArrayList<>();
+        for(Major m:majors){
+            others.add(new MajorDTO.OtherMajors(m.getCode(), m.getName()));
+        }
+        response.setOthers(others);
+
+        return response;
     }
 
     //for prediction

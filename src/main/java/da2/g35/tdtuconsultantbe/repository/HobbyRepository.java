@@ -12,4 +12,5 @@ import java.util.List;
 @Repository
 public interface HobbyRepository extends JpaRepository<Hobby, Long> {
     List<Hobby> findHobbiesByWhoseHobbiesContains(User user);
+    Hobby findByCode(String code);
 }

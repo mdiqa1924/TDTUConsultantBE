@@ -9,7 +9,6 @@ public class CombinationDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class CombinationResponse{
-        private Long id;
         private String name;
     }
 }

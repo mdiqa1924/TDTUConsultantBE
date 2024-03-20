@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hobby")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class HobbyController {
     @Autowired
     private HobbyService hobbyService;
@@ -21,5 +22,11 @@ public class HobbyController {
     public ResponseEntity<Object> getHobbiesByUser(@Valid @PathVariable Long id){
         List<HobbyDTO.HobbyResponse> hobbies = hobbyService.getHobbiesByUser(id);
         return ResponseEntity.ok(hobbies);
+    }
+
+    @PostMapping(value = "/test_result")
+    public ResponseEntity<Object> getMBTIResult(@Valid @RequestBody HobbyDTO.MBTITestResult result){
+        HobbyDTO.MBTITestResponse response = hobbyService.testResponse(result);
+        return ResponseEntity.ok(response);
     }
 }

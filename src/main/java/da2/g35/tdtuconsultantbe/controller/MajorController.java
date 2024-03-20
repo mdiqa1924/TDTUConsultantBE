@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/major")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class MajorController {
     @Autowired
     private MajorService majorService;
@@ -24,7 +25,7 @@ public class MajorController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getMajorById(@Valid @PathVariable Long id){
-        MajorDTO.MajorResponse response = majorService.getMajorById(id);
+        MajorDTO.MajorDetailResponse response = majorService.getDetailMajor(id);
         return ResponseEntity.ok(response);
     }
 
@@ -51,4 +52,5 @@ public class MajorController {
         List<MajorDTO.MajorResponse> responses = majorService.getMajorsByUser(id);
         return ResponseEntity.ok(responses);
     }
+
 }
